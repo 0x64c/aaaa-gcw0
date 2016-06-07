@@ -1,0 +1,10 @@
+[Desktop Entry]
+
+Type=Application
+Name=AAAA
+Comment=By Quasist
+Exec=aaaa
+Icon=icon.png
+Categories=games;
+X-OD-NeedsJoystick=false
+X-OD-NeedsGSensor=false
