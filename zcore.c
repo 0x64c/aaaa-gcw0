@@ -275,7 +275,7 @@ void zcore_video_init(void)
 #if defined(GCW)
 
 ////////////////////////////////////////////////////////////////////////////////////////
-   screen=SDL_SetVideoMode(320,240,16, SDL_OPENGL);
+   screen=SDL_SetVideoMode(320,240,16, SDL_SWSURFACE);
 
    const char* output;
 
