@@ -48,7 +48,9 @@ u8 meshtid[MESH_CNT];
 
 u8 textureheader[256][4],texturereload[256];
 u16 texturedata[1048576*5/2];
-u32 texturepointer[128];
+//senquack - should be [256], judging from its use in zrmloadtextures() in zresm.c:
+//u32 texturepointer[128];
+u32 texturepointer[256];
 
 u16 meshcount;
 

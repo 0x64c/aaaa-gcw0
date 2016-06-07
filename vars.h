@@ -46,7 +46,9 @@ extern u8 meshtid[MESH_CNT];
 
 extern u8 textureheader[256][4],texturereload[256];
 extern u16 texturedata[1048576*5/2];
-extern u32 texturepointer[128];
+//senquack - should be [256], judging from its use in zrmloadtextures() in zresm.c:
+//extern u32 texturepointer[128];
+extern u32 texturepointer[256];
 
 extern u16 meshcount;
 
