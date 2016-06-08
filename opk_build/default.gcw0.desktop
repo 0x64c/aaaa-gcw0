@@ -3,7 +3,7 @@
 Type=Application
 Name=AAAA
 Comment=By Quasist
-Exec=aaaa
+Exec=start.sh
 Icon=icon
 Categories=games;
 X-OD-NeedsJoystick=false
