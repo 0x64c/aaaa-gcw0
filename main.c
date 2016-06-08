@@ -2,7 +2,8 @@
 #include "zcore.h"
 #include "zresm.h"
 
-int main(int argc, char *argv[])
+//int main(int argc, char *argv[]) //unused arguments
+int main()
 {
     zresminit();
 
