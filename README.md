@@ -32,3 +32,8 @@ Textures flicker with a certain camera orientation.
 Narrator voice missing in into sequence.
 
 G-Sensor is buggy.
+
+
+TODO:
+
+libshake support
