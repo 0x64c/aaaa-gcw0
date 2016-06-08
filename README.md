@@ -33,3 +33,4 @@ Game progress/config are saved inside OPK directory and are therefore lost.
 
 Narrator voice missing in into sequence.
 
+G-Sensor is buggy.
