@@ -42,7 +42,7 @@ void loadconfig(void)
 {
     FILE *fp;
     u8 i;
-    #ifdef GCW
+    #if defined(GCW) && !defined(PC)
     fp=fopen("/media/data/local/home/.aaaa/donothexedit.me","rb");
     #else
     fp=fopen("donothexedit.me","rb");
@@ -55,7 +55,7 @@ void saveconfig(void)
 {
     FILE *fp;
     u8 i;
-    #ifdef GCW
+    #if defined(GCW) && !defined(PC)
     fp=fopen("/media/data/local/home/.aaaa/donothexedit.me","wb");
     #else
     fp=fopen("donothexedit.me","wb");

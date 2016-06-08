@@ -1,0 +1,55 @@
+OPK_DIR=opk_build
+SDL_CONFIG=/usr/bin/sdl-config
+
+LIB_INCLUDE=/usr/lib
+CC=gcc
+CXX=g++
+STRIP=strip
+
+EXE = aaaa
+OPK = $(EXE).opk
+RM = rm -f
+
+
+# Add SDL dependency
+LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lX11
+CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW -DPC
+
+#Pandora Mode
+#LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lX11
+#CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DPANDORA
+
+
+
+#LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell sdl-config --libs) -lGL
+#CFLAGS +=$(shell sdl-config --cflags) -DPC32
+
+# Define targets
+SRCS=$(shell echo *.c)
+OBJS=$(SRCS:%.c=%.o)
+
+ALL : $(EXE)
+
+.c.o:
+	$(CC) $(CFLAGS) $(CXXFLAGS) -c $*.c -o $*.o 
+.cpp.o:
+	$(CXX) $(CFLAGS) $(CXXFLAGS) -c $*.cpp -o $*.o 
+
+$(EXE) : $(OBJS)
+	$(CXX) $(OBJS) -o $(EXE) $(LDFLAGS)
+#	$(STRIP) $(EXE)
+
+#opk : $(EXE)
+	cp $(EXE) $(OPK_DIR)
+#	mksquashfs opk_build $(EXE).opk -all-root -noappend -no-exports -no-xattrs
+
+#install : $(EXE)
+#	$(INSTALL_PROG) $(EXE) $(PREFIX)/bin
+
+#uninstall :
+#	$(RM) $(PREFIX)/bin/$(EXE)
+
+clean :
+	$(RM) $(OBJS) $(EXE) $(OPK_DIR)/$(EXE) $(OPK)
+
+.PHONY:opk clean install uninstall ALL

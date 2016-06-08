@@ -30,6 +30,11 @@ Display *g_x11Display = NULL;
 #include "GLES/gl.h"
 #include "GLES/egl.h"
 #include "GLES/glext.h"
+#include <SDL/SDL_syswm.h>
+  #ifdef PC
+  #include <X11/Xlib.h>
+  Display *g_x11Display = NULL;
+  #endif
 #endif
 #ifdef GP2XWIZ
 #include "OpenGLES/gl.h"
@@ -46,27 +51,27 @@ const char *gl_vendor,*gl_renderer,*gl_version,*gl_extensions;
 #if defined(PANDORA)
 
 EGLint attrib_list_fsaa[]= {
-	EGL_RED_SIZE,		5,
-	EGL_GREEN_SIZE,		6,
-	EGL_BLUE_SIZE,		5,
-	EGL_DEPTH_SIZE,		16,
-	EGL_SURFACE_TYPE,	EGL_WINDOW_BIT,
-	EGL_RENDERABLE_TYPE,	EGL_OPENGL_ES_BIT,
-	EGL_SAMPLE_BUFFERS,	1,
-	EGL_SAMPLES,		1,
-	EGL_NONE
+    EGL_RED_SIZE,        5,
+    EGL_GREEN_SIZE,        6,
+    EGL_BLUE_SIZE,        5,
+    EGL_DEPTH_SIZE,        16,
+    EGL_SURFACE_TYPE,    EGL_WINDOW_BIT,
+    EGL_RENDERABLE_TYPE,    EGL_OPENGL_ES_BIT,
+    EGL_SAMPLE_BUFFERS,    1,
+    EGL_SAMPLES,        1,
+    EGL_NONE
 };
 
 EGLint attrib_list[]= {
-	EGL_RED_SIZE,		5,
-	EGL_GREEN_SIZE,		6,
-	EGL_BLUE_SIZE,		5,
-	EGL_DEPTH_SIZE,		16,
-	EGL_SURFACE_TYPE,	EGL_WINDOW_BIT,
-	EGL_RENDERABLE_TYPE,	EGL_OPENGL_ES_BIT,
-	EGL_SAMPLE_BUFFERS,	1,
-	EGL_SAMPLES,		4,
-	EGL_NONE
+    EGL_RED_SIZE,        5,
+    EGL_GREEN_SIZE,        6,
+    EGL_BLUE_SIZE,        5,
+    EGL_DEPTH_SIZE,        16,
+    EGL_SURFACE_TYPE,    EGL_WINDOW_BIT,
+    EGL_RENDERABLE_TYPE,    EGL_OPENGL_ES_BIT,
+    EGL_SAMPLE_BUFFERS,    1,
+    EGL_SAMPLES,        4,
+    EGL_NONE
 };
 #else
 EGLint attrib_list_fsaa[]= {EGL_SURFACE_TYPE,EGL_WINDOW_BIT,EGL_BUFFER_SIZE,16,EGL_DEPTH_SIZE,16,EGL_SAMPLE_BUFFERS,1,EGL_SAMPLES,4,EGL_NONE};
@@ -278,7 +283,9 @@ void zcore_video_init(void)
 #if defined(GCW)
 
 ////////////////////////////////////////////////////////////////////////////////////////
-   screen=SDL_SetVideoMode(320,240,16, SDL_SWSURFACE);
+
+
+/*   screen=SDL_SetVideoMode(320,240,16, SDL_SWSURFACE);
 
    const char* output;
 
@@ -290,25 +297,27 @@ void zcore_video_init(void)
       EGL_NONE           // This is important as it tells EGL when to stop looking in the array
    };
 
-	screenwidth=320;
-	screenheight=240;
-	int screenbpp=16;
-	EGLint numConfigs,majorVersion,minorVersion;
-	EGLBoolean result;
-	glDisplay=eglGetDisplay(EGL_DEFAULT_DISPLAY);
-	if (glDisplay == EGL_NO_DISPLAY)
-	{
+    screenwidth=320;
+    screenheight=240;
+    int screenbpp=16;
+    EGLint numConfigs,majorVersion,minorVersion;
+    EGLBoolean result;
+    glDisplay=eglGetDisplay(EGL_DEFAULT_DISPLAY);
+
+    if (glDisplay == EGL_NO_DISPLAY)
+    {
       CheckGLESErrors( __FILE__, __LINE__ );
       printf( "OpenGLES ERROR: Unable to create EGL display.\n" );
-	}
-	printf( "OpenGLES: Initializing\n" );
-	result = eglInitialize(glDisplay, &majorVersion, &minorVersion );
-	if (result != EGL_TRUE )
-	{
-	  CheckGLESErrors( __FILE__, __LINE__ );
-	  printf( "OpenGLES ERROR: Unable to initialize EGL display.\n" );
-	}
-   /* Get EGL Library Information */
+    }
+    printf( "OpenGLES: Initializing\n" );
+    result = eglInitialize(glDisplay, &majorVersion, &minorVersion );
+    if (result != EGL_TRUE )
+    {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to initialize EGL display.\n" );
+    }
+   // Get EGL Library Information
+
    printf( "EGL Implementation Version: Major %d Minor %d\n", majorVersion, minorVersion );
    output = eglQueryString( glDisplay, EGL_VENDOR );
    printf( "EGL_VENDOR: %s\n", output );
@@ -327,6 +336,7 @@ void zcore_video_init(void)
 
    printf( "OpenGLES: Creating context\n" );
    glContext = eglCreateContext(glDisplay, glConfig, EGL_NO_CONTEXT, NULL);
+
    if (glContext== EGL_NO_CONTEXT)
    {
       CheckGLESErrors( __FILE__, __LINE__ );
@@ -338,6 +348,7 @@ void zcore_video_init(void)
 
    printf( "OpenGLES: Creating window surface\n" );
    glSurface = eglCreateWindowSurface(glDisplay, glConfig, hNativeWnd, NULL);
+
    if (glSurface == EGL_NO_SURFACE)
    {
       CheckGLESErrors( __FILE__, __LINE__ );
@@ -346,6 +357,7 @@ void zcore_video_init(void)
 
    printf( "OpenGLES: Making current the new context\n" );
    result = eglMakeCurrent(glDisplay, glSurface, glSurface, glContext);
+
    if (result != EGL_TRUE)
    {
       CheckGLESErrors( __FILE__, __LINE__ );
@@ -358,13 +370,145 @@ void zcore_video_init(void)
    printf( "OpenGLES: Initialization complete\n" );
    CheckGLESErrors( __FILE__, __LINE__ );
 
-	SDL_ShowCursor(SDL_DISABLE);
+    SDL_ShowCursor(SDL_DISABLE);
+    glVertexPointer(3,GL_FIXED,0,mesh);
+    glTexCoordPointer(2,GL_FIXED,0,mesht);
+    glFogf(GL_FOG_MODE,GL_LINEAR);
+    glAlphaFuncx(GL_GREATER,65536/2);
+*/
+
+#ifdef PC
+    const char* output;
+    EGLBoolean result;
+
+    EGLint egl_config_attr[] = {
+      EGL_BUFFER_SIZE,   16,
+      EGL_DEPTH_SIZE,    16,     
+      EGL_STENCIL_SIZE,  0,
+      EGL_SURFACE_TYPE,     EGL_WINDOW_BIT,
+      EGL_NONE           // This is important as it tells EGL when to stop looking in the array
+    };
+
+    EGLint numConfigs,majorVersion,minorVersion;
+
+    screenwidth=320;
+    screenheight=240;
+    int screenbpp=16;
+    screen=SDL_SetVideoMode(screenwidth,screenheight,screenbpp, SDL_SWSURFACE); // | SDL_FULLSCREEN);
+    g_x11Display = XOpenDisplay(NULL);
+    #define _EGL_DSP (EGLNativeDisplayType)g_x11Display
+    glDisplay=eglGetDisplay(_EGL_DSP);
+
+    if (glDisplay == EGL_NO_DISPLAY)
+    {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to create EGL display.\n" );
+    }
+
+    printf( "OpenGLES: Initializing\n" );
+    result = eglInitialize(glDisplay, &majorVersion, &minorVersion );
+    if (result != EGL_TRUE )
+    {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to initialize EGL display.\n" );
+    }
+   //Get EGL Library Information
+
+   printf( "EGL Implementation Version: Major %d Minor %d\n", majorVersion, minorVersion );
+   output = eglQueryString( glDisplay, EGL_VENDOR );
+   printf( "EGL_VENDOR: %s\n", output );
+   output = eglQueryString( glDisplay, EGL_VERSION );
+   printf( "EGL_VERSION: %s\n", output );
+   output = eglQueryString( glDisplay, EGL_EXTENSIONS );
+   printf( "EGL_EXTENSIONS: %s\n", output );
+   printf("OpenGLES: Requesting %dx%d %dbpp configuration\n", screenwidth, screenheight, screenbpp);
+
+   result = eglChooseConfig(glDisplay, egl_config_attr, &glConfig, 1, &numConfigs);
+
+   if (result != EGL_TRUE || numConfigs == 0)
+   {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "EGLport ERROR: Unable to query for available configs, found %d.\n", numConfigs );
+   }
+
+    SDL_SysWMinfo sysInfo;
+    SDL_VERSION(&sysInfo.version); //Set SDL version
+    SDL_GetWMInfo(&sysInfo);
+
+   printf( "OpenGLES: Creating context\n" );
+   glContext = eglCreateContext(glDisplay, glConfig, EGL_NO_CONTEXT, NULL);
+
+   if (glContext== EGL_NO_CONTEXT)
+   {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to create GLES context!\n");
+   }
+
+
+   printf( "OpenGLES: Creating window surface\n" );
+   glSurface=eglCreateWindowSurface(glDisplay,glConfig,(EGLNativeWindowType)sysInfo.info.x11.window,0);
+
+
+   if (glSurface == EGL_NO_SURFACE)
+   {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to create EGL surface!\n" );
+   }
+
+
+   
+
+   printf( "OpenGLES: Making current the new context\n" );
+   result = eglMakeCurrent(glDisplay, glSurface, glSurface, glContext);
+
+   if (result != EGL_TRUE)
+   {
+      CheckGLESErrors( __FILE__, __LINE__ );
+      printf( "OpenGLES ERROR: Unable to make GLES context current\n" );
+   }
+
+   printf( "OpenGLES: Setting swap interval\n" );
+   eglSwapInterval(glDisplay, 1);      // We want VSYNC
+
+   printf( "OpenGLES: Initialization complete\n" );
+   CheckGLESErrors( __FILE__, __LINE__ );
+
+    SDL_ShowCursor(SDL_DISABLE);
+    glVertexPointer(3,GL_FIXED,0,mesh);
+    glTexCoordPointer(2,GL_FIXED,0,mesht);
+    glFogf(GL_FOG_MODE,GL_LINEAR);
+    glAlphaFuncx(GL_GREATER,65536/2);
+#else
+
+    EGLint numConfigs,majorVersion,minorVersion;
+    EGLint egl_config_attr[] = {
+      EGL_BUFFER_SIZE,   16,
+      EGL_DEPTH_SIZE,    16,     
+      EGL_STENCIL_SIZE,  0,
+      EGL_SURFACE_TYPE,     EGL_WINDOW_BIT,
+      EGL_NONE
+    };
+    screen=SDL_SetVideoMode(320,240,16, SDL_SWSURFACE);
+    glDisplay=eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    eglInitialize(glDisplay, &majorVersion, &minorVersion );
+    eglChooseConfig(glDisplay, egl_config_attr, &glConfig, 1, &numConfigs);
+    hNativeWnd=0;
+    SDL_SysWMinfo sysInfo;
+    SDL_VERSION(&sysInfo.version);
+    SDL_GetWMInfo(&sysInfo);
+    glSurface = eglCreateWindowSurface(glDisplay, glConfig, hNativeWnd, NULL);
+    glContext = eglCreateContext(glDisplay, glConfig, EGL_NO_CONTEXT, NULL);
+    eglMakeCurrent(glDisplay, glSurface, glSurface, glContext);
+    //eglSwapInterval(glDisplay, 1);
+    SDL_ShowCursor(SDL_DISABLE);
     glVertexPointer(3,GL_FIXED,0,mesh);
     glTexCoordPointer(2,GL_FIXED,0,mesht);
     glFogf(GL_FOG_MODE,GL_LINEAR);
     glAlphaFuncx(GL_GREATER,65536/2);
 
 #endif
+#endif
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -429,7 +573,7 @@ void zcore_video_frame(void)
 {
     if (thisframenice)
     {
-        coreupdatetextures();
+        //coreupdatetextures();
         corerenderrender();
 
 #ifdef PC32
@@ -449,9 +593,9 @@ void zcore_video_down(void)
     eglDestroySurface(glDisplay,glSurface);
     eglDestroyContext(glDisplay,glContext);
     eglTerminate(glDisplay);
-	#ifndef GCW
+    #ifndef GCW
     free(hNativeWnd);
-	#endif
+    #endif
 #endif
 }
 
