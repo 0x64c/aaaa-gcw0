@@ -25,7 +25,6 @@ SDL_Surface *screen = NULL;
 #include "GLES/glext.h"
 #include <SDL/SDL_syswm.h>
 
-Display *g_x11Display = NULL;
 #elif defined(GP2XCAANOO) || defined(GCW)
 #include "GLES/gl.h"
 #include "GLES/egl.h"
@@ -480,6 +479,9 @@ void zcore_video_init(void)
     glAlphaFuncx(GL_GREATER,65536/2);
 #else
 
+    screenwidth=320;
+    screenheight=240;
+    int screenbpp=16;
     EGLint numConfigs,majorVersion,minorVersion;
     EGLint egl_config_attr[] = {
       EGL_BUFFER_SIZE,   16,
@@ -488,7 +490,7 @@ void zcore_video_init(void)
       EGL_SURFACE_TYPE,     EGL_WINDOW_BIT,
       EGL_NONE
     };
-    screen=SDL_SetVideoMode(320,240,16, SDL_SWSURFACE);
+    screen=SDL_SetVideoMode(screenwidth,screenheight,screenbpp, SDL_SWSURFACE);
     glDisplay=eglGetDisplay(EGL_DEFAULT_DISPLAY);
     eglInitialize(glDisplay, &majorVersion, &minorVersion );
     eglChooseConfig(glDisplay, egl_config_attr, &glConfig, 1, &numConfigs);
