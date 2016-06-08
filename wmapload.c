@@ -6,6 +6,7 @@
 #include "wlight.h"
 
 #include "mobs.h"
+#include "SDL/SDL.h" //missing include
 
 #define FPML(x,y) ((((x)>>7)*((y)>>7))>>2)
 

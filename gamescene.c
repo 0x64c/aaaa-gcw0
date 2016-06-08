@@ -6,9 +6,9 @@
 #include "veryblend.h"
 #include "bullets.h"
 #include "narrator.h"
-//#include "camera.h"
-//#include "SDL/SDL.h"
-//#include "wmapload.h"
+#include "camera.h" //missing include
+#include "SDL/SDL.h" //missing include
+#include "wmapload.h" //missing include
 
 #include "zgui.h"
 #include "wlight.h"

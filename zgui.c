@@ -2,7 +2,7 @@
 #include "vars.h"
 #include "render.h"
 #include "zlmath.h"
-
+#include "wmapload.h" //missing include
 
 void procnoise(void)
 {

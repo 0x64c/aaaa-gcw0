@@ -1,4 +1,5 @@
 #include "vars.h"
+#include "zcsound.h" //missing include
 
 void procintro(void)
 {

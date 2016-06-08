@@ -1,5 +1,6 @@
 #include "vars.h"
 #include "zlmath.h"
+#include "zcsound.h" //missing include
 
 s32 ta,taa,range,insight,ta;
 s32 x,y,z,dx,dy,dz,vx,vy;

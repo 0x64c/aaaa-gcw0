@@ -2,7 +2,7 @@
 #include "zlmath.h"
 #include "render.h"
 
-
+#include "veryblend.h" //missing include
 
 #define FPML(x,y) ((((x)>>7)*((y)>>7))>>2)
 

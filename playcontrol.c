@@ -1,6 +1,9 @@
 #include "vars.h"
 #include "camera.h"
 #include "intro.h"
+#include "zcsound.h" //missing include
+#include "wmapload.h" //missing include
+#include "mobs.h" //missing include
 
 #define FPML(x,y) ((((x)>>7)*((y)>>7))>>2)
 

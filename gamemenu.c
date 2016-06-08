@@ -2,6 +2,7 @@
 #include "vars.h"
 #include "render.h"
 #include "zcsound.h"
+#include "wmapload.h" //missing include
 
 s32 mmpos,lmmpos;
 

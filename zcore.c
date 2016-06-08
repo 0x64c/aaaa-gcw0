@@ -15,6 +15,9 @@ SDL_Surface *screen = NULL;
 #endif
 
 #if defined(GP2X) || defined(PANDORA) || defined(GCW)
+
+#include "zlext.h" //missing include
+
 #if defined(PANDORA)
 #include <X11/Xlib.h>
 #include "GLES/gl.h"
@@ -146,7 +149,7 @@ void corereloadtexture(unsigned char index)
 
 
 
-
+#ifndef PC32
 int8_t CheckGLESErrors( const char* file, uint16_t line )
 {
    EGLenum error;
@@ -223,7 +226,7 @@ int8_t CheckGLESErrors( const char* file, uint16_t line )
    }
    return 0;
 }
-
+#endif
 
 
 

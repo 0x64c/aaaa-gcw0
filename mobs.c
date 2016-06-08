@@ -7,6 +7,8 @@
 #include "sprites.h"
 #include "bullets.h"
 
+#include "zcsound.h" //missing include
+#include "particles.h" //missing include
 
 #define FPML(x,y) ((((x)>>7)*((y)>>7))>>2)
 
