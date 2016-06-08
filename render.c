@@ -268,47 +268,75 @@ void zlTexCoord2x(signed long x,signed long y)
 }
 void zlVertex3x(signed long x,signed long y,signed long z)
 {
-    mesh[zlr_mi++]=x;
-    mesh[zlr_mi++]=y;
-    mesh[zlr_mi++]=z;
 
-    meshc[zlr_ci++]=zlr_r;
-    meshc[zlr_ci++]=zlr_g;
-    meshc[zlr_ci++]=zlr_b;
-    meshc[zlr_ci++]=zlr_a;
+    mesh[zlr_mi]=x;
+    zlr_mi++; 
+    mesh[zlr_mi]=y;
+    zlr_mi++; 
+    mesh[zlr_mi]=z;
+    zlr_mi++; 
 
-    mesht[zlr_ti++]=zlr_tx;
-    mesht[zlr_ti++]=zlr_ty;
+    meshc[zlr_ci]=zlr_r;
+    zlr_ci++; 
+    meshc[zlr_ci]=zlr_g;
+    zlr_ci++; 
+    meshc[zlr_ci]=zlr_b;
+    zlr_ci++; 
+    meshc[zlr_ci]=zlr_a;
+    zlr_ci++; 
 
+    mesht[zlr_ti]=zlr_tx;
+    zlr_ti++; 
+    mesht[zlr_ti]=zlr_ty;
+    zlr_ti++; 
 
     if ((zlr_count&3)==2)
     {
-        mesh[zlr_mi++]=mesh[zlr_mi-3];
-        mesh[zlr_mi++]=mesh[zlr_mi-3];
-        mesh[zlr_mi++]=mesh[zlr_mi-3];
+        mesh[zlr_mi]=mesh[zlr_mi-3];
+        zlr_mi++; 
+        mesh[zlr_mi]=mesh[zlr_mi-3];
+        zlr_mi++; 
+        mesh[zlr_mi]=mesh[zlr_mi-3];
+        zlr_mi++; 
 
-        mesh[zlr_mi++]=mesh[zlr_mi-12];
-        mesh[zlr_mi++]=mesh[zlr_mi-12];
-        mesh[zlr_mi++]=mesh[zlr_mi-12];
+        mesh[zlr_mi]=mesh[zlr_mi-12];
+        zlr_mi++; 
+        mesh[zlr_mi]=mesh[zlr_mi-12];
+        zlr_mi++; 
+        mesh[zlr_mi]=mesh[zlr_mi-12];
+        zlr_mi++; 
 
-        meshc[zlr_ci++]=meshc[zlr_ci-4];
-        meshc[zlr_ci++]=meshc[zlr_ci-4];
-        meshc[zlr_ci++]=meshc[zlr_ci-4];
-        meshc[zlr_ci++]=meshc[zlr_ci-4];
+        meshc[zlr_ci]=meshc[zlr_ci-4];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-4];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-4];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-4];
+        zlr_ci++; 
 
-        meshc[zlr_ci++]=meshc[zlr_ci-16];
-        meshc[zlr_ci++]=meshc[zlr_ci-16];
-        meshc[zlr_ci++]=meshc[zlr_ci-16];
-        meshc[zlr_ci++]=meshc[zlr_ci-16];
+        meshc[zlr_ci]=meshc[zlr_ci-16];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-16];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-16];
+        zlr_ci++; 
+        meshc[zlr_ci]=meshc[zlr_ci-16];
+        zlr_ci++; 
 
-        mesht[zlr_ti++]=mesht[zlr_ti-2];
-        mesht[zlr_ti++]=mesht[zlr_ti-2];
-        mesht[zlr_ti++]=mesht[zlr_ti-8];
-        mesht[zlr_ti++]=mesht[zlr_ti-8];
+        mesht[zlr_ti]=mesht[zlr_ti-2];
+        zlr_ti++; 
+        mesht[zlr_ti]=mesht[zlr_ti-2];
+        zlr_ti++; 
+        mesht[zlr_ti]=mesht[zlr_ti-8];
+        zlr_ti++; 
+        mesht[zlr_ti]=mesht[zlr_ti-8];
+        zlr_ti++; 
 
-        meshtid[zlr_tid++]=zlr_texture;
-        meshtid[zlr_tid++]=zlr_texture;
-
+        meshtid[zlr_tid]=zlr_texture;
+        zlr_tid++; 
+        meshtid[zlr_tid]=zlr_texture;
+        zlr_tid++; 
     }
 
     zlr_count++;
