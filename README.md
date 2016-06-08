@@ -4,11 +4,11 @@ Controls:
 
 A: Confirm/Sword
 
-B: Fire gun
+B: Jump
 
 X: Shout/Confirm Quit
 
-Y: Jump
+Y: Fire Gun
 
 L: Aim gun
 
