@@ -106,7 +106,7 @@ void predrawmp1(void)
                         newlight((x<<16)+32768,(y<<16)+32768,(z<<16)+32768,(255)+(0<<8)+(255<<16)+(2<<24));
                         break;// light
                     case 15:
-                        l=128+f_sin[count*5]>>18;
+                        l=(128+f_sin[count*5])>>18;
                         newlight((x<<16)+32768,(y<<16)+32768,(z<<16)+32768,(l)+(l<<8)+(l<<16)+(3<<24));
                         break;//strange light
                     }
@@ -114,7 +114,9 @@ void predrawmp1(void)
 
 void procmp1(u8 x,u8 y,u8 z)
 {
-    s32 x0,y0,z0,sizex,sizey,wtx,wty,wz[4],howfar,r,g,b,ir,ig,ib,wtune;
+//    s32 x0,y0,z0,sizex,sizey,wtx,wty,wz[4],howfar,r,g,b,ir,ig,ib,wtune; //unused var
+    s32 x0,y0,z0,sizex,sizey,wtx,wty,wz[4],howfar,r,g,b,ir,ig,ib;
+
     wtx=(f_cos[(count*3)&4095])>>1;
     wty=(f_sin[(count*4)&4095])>>1;
     x0=((x)<<16)+32728;
@@ -879,7 +881,8 @@ void RenderMap(void)
     if ((count % 48)==0) emittick=1;
     if ((count % 240)==0) emittick2=1;
 
-    s32 cx,cy,cz,cx0,cx1,cy0,cy1,cz0,cz1,ix,iy,iz,xx,yy,zz,dd,ddx,ddy;
+//    s32 cx,cy,cz,cx0,cx1,cy0,cy1,cz0,cz1,ix,iy,iz,xx,yy,zz,dd,ddx,ddy; //unused var
+    s32 cx,cy,cz,cx0,cx1,cy0,cy1,cz0,cz1,ix,iy,iz,xx,yy,zz,dd,ddx;
 
     lcx=cx;
     lcy=cy;
@@ -907,18 +910,18 @@ void RenderMap(void)
     if (cz1>cmapmaxy) cz1=cmapmaxy;
 
     s32 fog_end2=fog_end+65536;
-    u8 vis;
+//    u8 vis; //unused
     u32 verts=0,sverts=0,verts0=0;
 
-    u8 isee;
-    s32 sx,sy,sz,iisx,iisy,iisz,iseesteps,t,scx,scy,scz;
+//    u8 isee; //unused var
+//    s32 sx,sy,sz,iisx,iisy,iisz,iseesteps,t,scx,scy,scz; //unused var
 
-    scx=camera[0];
-    scy=camera[2];
-    scz=camera[1];
+    //scx=camera[0]; //unused
+    //scy=camera[2];
+    //scz=camera[1];
 
-    sx=RENDERCUBEW*2;
-    sz=RENDERCUBEY*2;
+    //sx=RENDERCUBEW*2; //unused
+    //sz=RENDERCUBEY*2;
 
     contblock[0]=0;
     contblock[1]=0;
@@ -1079,8 +1082,8 @@ void RenderMap(void)
                         iy=y-cy0;
                         iz=z-cz0;
 
-                        sx=x-cx+10;
-                        sy=y-cy+10;
+                        //sx=x-cx+10; //unused
+                        //sy=y-cy+10;
 //sz=z-cz;
 
                         if (cert[ix][iy][iz])
@@ -1970,7 +1973,7 @@ void RenderMap(void)
 
 void rendersky(void)
 {
-    s32 x;
+    //s32 x; //unused var
 
     switch (mpheader[21])
     {
@@ -2082,7 +2085,7 @@ void predrawmobs(void)
     s32 k;
     for (i=0; i<64; i++)
         if (mob[i][0]>0)
-            if (mob[i][41]>0 | i==mobcontrol)
+            if ((mob[i][41]>0) | (i==mobcontrol))
             {
                 switch (mob[i][10])
                 {

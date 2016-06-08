@@ -20,13 +20,13 @@ void startnaration(unsigned char index)
 
 
 
-#define SUBTITLE(x,y,z) if (narationticks>x & narationticks<=y) l_text=sprintf(s_text,z);else
-#define TIMETRAP(x,y) if (narationticks>x & narationticks<=y)
+#define SUBTITLE(x,y,z) if ((narationticks>x) & (narationticks<=y)) l_text=sprintf(s_text,z);else
+#define TIMETRAP(x,y) if ((narationticks>x) & (narationticks<=y))
 
 void creditss(s32 x,s32 y,u8 iii)
 {
     s32 a,l;
-    if (narationticks>x & narationticks<=y)
+    if ((narationticks>x) & (narationticks<=y))
     {
         l=65536+((f_sin[narationticks&4095])>>6);
         a=((narationticks-x)*2048)/(y-x);
@@ -71,7 +71,8 @@ void introtext(u8 i)
 
 void narrationsubtitles(void)
 {
-    s32 i,k,l,sc,r,g,b,a;
+//    s32 i,k,l,sc,r,g,b,a; //unused var
+    s32 i,k;
 
     l_text=0;
     switch (narration)

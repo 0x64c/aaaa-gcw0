@@ -56,6 +56,7 @@ void procgamecontrol(void)
                 fpsdisplay=((fpsdisplay+1) & 1);
 
     if (endlevel==0)
+    {
         if (loserwantexit>0)
         {
 
@@ -65,7 +66,7 @@ void procgamecontrol(void)
                 zcplaysound(3);
             }
 
-            if (button[0]==1 | button[1]==1 | button[2]==1) {
+            if ((button[0]==1) | (button[1]==1) | (button[2]==1)) {
                 loserwantexit=0;
                 zcplaysound(2);
             }
@@ -82,7 +83,7 @@ void procgamecontrol(void)
             if (mobcontrol==64)
             {
                 procintro();
-                if (button[0]==1 | button[1]==1 | button[2]==1 |button[3]==1 |button[8]==1 |button[9]==1 | mousetap==1)
+                if ((button[0]==1) | (button[1]==1) | (button[2]==1) | (button[3]==1) |(button[8]==1) | (button[9]==1) | (mousetap==1))
                 {
                     mob[64][1]=mpheader[4]*65536+32768;
                     mob[64][2]=mpheader[5]*65536+32768;
@@ -110,12 +111,13 @@ void procgamecontrol(void)
 
 
                 if (firstperson==0)
+                {
                     if (button[4]>0) {
                         if (playeraim==0)zcplaysound3d(16,5,mob[mobcontrol][1],mob[mobcontrol][2],mob[mobcontrol][3]+65536);
                         playeraim=16;
                     }
                     else if (playeraim>0) playeraim--;
-
+                }
                 firstperson=0;
                 if (playeraim==0)
                     if (mob[mobcontrol][36]==0)
@@ -167,6 +169,7 @@ void procgamecontrol(void)
                         if (button[1]==1) mob[mobcontrol][31]=5;
 
                     if (firstperson==0)
+                    {
                         if (mob[mobcontrol][36]==0)
                             if (mob[mobcontrol][37]==0)
                                 if (mob[mobcontrol][38]==0)
@@ -175,15 +178,15 @@ void procgamecontrol(void)
                                     if (button[3]==1) mob[mobcontrol][37]=64;//scream
                                     if (button[0]==1) mob[mobcontrol][38]=64;//shoot
                                 }
-
+                    }
                     if (button[9]==1)
+                    {
                         if (mob[mobcontrol][44]==0) {
                             mob[mobcontrol][44]=1;
                             zcplaysound3d(14,5,mob[mobcontrol][1],mob[mobcontrol][2],mob[mobcontrol][3]+65536);
                         }
                         else mob[mobcontrol][44]=-mob[mobcontrol][44];
-
-
+                    }
 		    mob[mobcontrol][13]+=axis[2]/4;
 		    mob[mobcontrol][12]+=axis[3]/4;
                     if (mousebutton[0])
@@ -208,6 +211,7 @@ void procgamecontrol(void)
                 else tpscamera();
             }
         }
+    }
 }
 
 void procautism(void)
@@ -223,7 +227,7 @@ void procautism(void)
             zcplaysound(3);
         }
 
-        if (button[0]==1 | button[1]==1 | button[2]==1) {
+        if ((button[0]==1) | (button[1]==1) | (button[2]==1)) {
             loserwantexit=0;
             zcplaysound(2);
         }
@@ -280,7 +284,7 @@ void procautism(void)
         else
         {
             mob[mobcontrol][13]=mob[mobcontrol][13]*9/10;
-            if (mob[mobcontrol][9]<-256 | mob[mobcontrol][9]>256)
+            if ((mob[mobcontrol][9]<-256) | (mob[mobcontrol][9]>256))
                 mob[mobcontrol][12]=mob[mobcontrol][12]*9/10;
         }
 //
@@ -289,7 +293,7 @@ void procautism(void)
             autismdelay=436;
         }
 
-        if (button[0]==1 | button[2]==1)
+        if ((button[0]==1) | (button[2]==1))
         {
             x=camera[0];
             y=camera[2];
@@ -308,17 +312,17 @@ void procautism(void)
             iz=iz>>2;
 
             block=0;
-            if (x>0 & y>0 & z>0 & x<truemaxmapx & y<truemaxmapx & z<truemaxmaph)
+            if ((x>0) & (y>0) & (z>0) & (x<truemaxmapx) & (y<truemaxmapx) & (z<truemaxmaph))
             {
                 steps=0;
-                while (block==0 & steps<9)
+                while ((block==0) & (steps<9))
                 {
                     steps++;
                     x+=ix;
                     y+=iy;
                     z+=iz;
                     block=1;
-                    if (x>0 & y>0 & z>0 & x<truemaxmapx & y<truemaxmapx & z<truemaxmaph)
+                    if ((x>0) & (y>0) & (z>0) & (x<truemaxmapx) & (y<truemaxmapx) & (z<truemaxmaph))
                     {
                         block=0;
                         if (mp[x>>16][y>>16][z>>16][0]>0) block=2;
@@ -326,6 +330,7 @@ void procautism(void)
                     }
 
                     if (block==2)
+                    {
                         if (button[2]==1)
                         {
                             mpedit((x)>>16,(y)>>16,(z)>>16,0);
@@ -358,6 +363,7 @@ void procautism(void)
                                 zcplaysound(13);
                             }
                         }
+                    }
                 }
 
             }
@@ -380,7 +386,7 @@ void proczveryle(void)
             zcplaysound(3);
         }
 
-        if (button[0]==1 | button[1]==1 | button[2]==1) {
+        if ((button[0]==1) | (button[1]==1) | (button[2]==1)) {
             loserwantexit=0;
             zcplaysound(2);
         }

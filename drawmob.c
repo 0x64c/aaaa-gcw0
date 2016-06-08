@@ -646,7 +646,7 @@ void drawhero(unsigned char i)
         zlVertex3x(-16584,32768,-16584);
         zlEndQuads();
     }
-    if (playeraim>15 & secretskin==0)
+    if ((playeraim>15) & (secretskin==0))
     {
 //laser
         zlBindTexture(100);
@@ -1753,7 +1753,7 @@ void drawmob(unsigned char i)
         z=cz*65536+1000+20*i;
 
 
-        if (playmode!=ZPM_ZVERYLE | i==mobcontrol)
+        if ((playmode!=ZPM_ZVERYLE) | (i==mobcontrol))
             if (camera[1]>z)
                 if (range<65536*4)
                 {

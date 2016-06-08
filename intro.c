@@ -52,6 +52,7 @@ void procmovie(void)
     }
     else*/
     if (narrationlength>0)
+    {
         if (narrationlength<narationticks)
         {
             if (endlevel==0) endlevel=255;
@@ -91,12 +92,13 @@ void procmovie(void)
             camera[3]+=consoleturn[0]/3;
             camera[5]+=consoleturn[1];
         }
+    }
 
 
 
 
-    if (endlevel==0 | endlevel==255)
-        if (button[0]==1 | button[1]==1 | button[2]==1 |button[3]==1 |button[8]==1 |button[9]==1 | mousetap==1) {
+    if ((endlevel==0) | (endlevel==255))
+        if ((button[0]==1) | (button[1]==1) | (button[2]==1) | (button[3]==1) | (button[8]==1) | (button[9]==1) | (mousetap==1)) {
             /*narration=0;*/endlevel=255;
             zcplaysound(1);
         }

@@ -62,7 +62,8 @@ void zcsoundstep(void)
 
 void zcplaysound3d(unsigned char index,unsigned char ssize,signed long xx,signed long yy,signed long zz)
 {
-    s32 vx,vy,vz,ss,r,l,v,v1,range;
+//    s32 vx,vy,vz,ss,r,l,v,v1,range; //unused var
+    s32 vx,vy,vz,ss,r,l,v,range;
     float f_range;
 
     if (configdata[8])

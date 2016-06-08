@@ -40,7 +40,8 @@ s32 lcubew=21,lcubeh=19;
 void newlight(signed long x,signed long y,signed long z, unsigned long lightdata)
 {
     u8 r,g,b,lsize;
-    s32 ix,iy,iz,cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz,ccx,ccy,ccz;
+//    s32 ix,iy,iz,cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz,ccx,ccy,ccz; //unused var
+    s32 ix,iy,iz,cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz;
 
     if (thisframenice)
     {
@@ -86,14 +87,15 @@ void newlight(signed long x,signed long y,signed long z, unsigned long lightdata
 
 //flare
         s32 rg=-(FPML(x-camera[0],vcamera[2][0])+FPML(z-camera[1],vcamera[2][1])+FPML(y-camera[2],vcamera[2][2]));
-        s32 rx,ry,dist0,dist;
+//        s32 rx,ry,dist0,dist; //unused var
+        s32 rx,ry;
 
         if (rg>0)
             if (rg<lflare[1])
             {
                 rx=(FPML(x-camera[0],vcamera[0][0])+FPML(z-camera[1],vcamera[0][1])+FPML(y-camera[2],vcamera[0][2]));
                 ry=-(FPML(x-camera[0],vcamera[1][0])+FPML(z-camera[1],vcamera[1][1])+FPML(y-camera[2],vcamera[1][2]));
-                dist0=6556;
+                //dist0=6556; //unused
                 rx=FPDV(FPML(rx,65536+6553),(rg+6553));
                 ry=FPDV(FPML(ry,65536+6553),(rg+6553));
 
@@ -126,7 +128,8 @@ void newlight(signed long x,signed long y,signed long z, unsigned long lightdata
 void clearlightcube(void)
 {
     u8 x,y,z;
-    s32 ix,iy,iz,cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz,ccx,ccy,ccz;
+//    s32 ix,iy,iz,cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz,ccx,ccy,ccz; //unused var
+    s32 cx0,cy0,cz0,cx1,cy1,cz1,xx,yy,zz;
 
     if (thisframenice)
     {
@@ -167,7 +170,8 @@ void clearlightcube(void)
 
 void lcuberead(signed long x,signed long y,signed long z)
 {
-    s32 cz1,xx,yy,zz;
+//    s32 cz1,xx,yy,zz; //unused var
+    s32 xx,yy,zz;
 
     lcuber[0]=0;
     lcuber[1]=0;

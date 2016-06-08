@@ -68,7 +68,7 @@ void mobpeace(unsigned char i)
         mob[i][25]=(((mob[i][1]>>16)<<16)+32768);
         mob[i][26]=(((mob[i][2]>>16)<<16)+32768);
 
-        if (aiact<2 | aiact>5) aiact=2+(zlrand()>>5)%4;
+        if ((aiact<2) | (aiact>5)) aiact=2+(zlrand()>>5)%4;
 
         if (aiact==2) mob[i][26]-=65536;
         else if (aiact==3) mob[i][25]+=65536;
@@ -177,12 +177,14 @@ void mobattack(unsigned char i)
             if (mob[i][37]==0)
                 if (insight)
                     if (range<60000)
-                        if (mob[i][3]-mob[mobcontrol][3]>-100000)
-                            if (mob[i][3]-mob[mobcontrol][3]<100000)
-                                if (zlrand()&1==1)
+                        if ((mob[i][3]-mob[mobcontrol][3])>(-100000))
+                            if ((mob[i][3]-mob[mobcontrol][3])<(100000))
+                            {
+                                if ((zlrand()&1)==1)
                                     mob[i][36]=64;
                                 else
                                     mob[i][37]=64;
+                            }
         break;
     case 4://happy
         if (mob[i][37]==0)
@@ -220,7 +222,7 @@ void mobai(unsigned char i)
             ta=2047-zarctan(dx,dy);
             taa=cturn(ta,mob[i][7]+mob[i][13]);
 
-            if (playmode!=ZPM_ZVERYLE) if (taa<-512 | taa>512) insight=0;
+            if (playmode!=ZPM_ZVERYLE) if ((taa<-512) | (taa>512)) insight=0;
 
             if (insight) if (mobsee(i,mobcontrol)==0) insight=0;
         }

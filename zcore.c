@@ -646,7 +646,7 @@ mouseaxis[1]=(mouseaxis[1]*240)/screenheight;
     }
 
     mousetap=0;
-    if (s_mbutton>0 & mousebutton[0]==0 & mousetapfade>0) mousetap=1;
+    if ((s_mbutton>0) & (mousebutton[0]==0) & (mousetapfade>0)) mousetap=1;
 
     mousebutton[0]=s_mbutton;
 
@@ -702,7 +702,7 @@ void zcorestep(void)
 //if (frameskip) thisframenice=((count+1) & 1); else thisframenice=1;
     if (frameskip) thisframenice=((count) % (frameskip+1))==0;
     else thisframenice=1;
-    if (gamemode==ZGM_MENU | gamemode==ZGM_CONFIG | gamemode==ZGM_SELECTOR) thisframenice=1;
+    if ((gamemode==ZGM_MENU) | (gamemode==ZGM_CONFIG) | (gamemode==ZGM_SELECTOR)) thisframenice=1;
 
     zcore_input_frame();
     fstick0=SDL_GetTicks();

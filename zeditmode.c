@@ -51,7 +51,8 @@ void brushact(u8 index,s32 x,s32 y,s32 z)
 
 void zeditpaint(void)
 {
-    s32 x,y,z,l,lx,ix,iy,i,id,dx,dy,xx,yy,zz;
+//    s32 x,y,z,l,lx,ix,iy,i,id,dx,dy,xx,yy,zz; //unused var
+    s32 x,y,z,l,lx,ix,iy,i,id,dx,dy;
 
     lx=65536/5;
     l=65536/4;
@@ -206,7 +207,7 @@ void zeditpaint(void)
             else
                 i=ebrush+x;
             if (i>=0)
-                if ((i<40 & mp1mode==0)|(i<64 & mp1mode==1))
+                if (((i<40) & (mp1mode==0))|((i<64) & (mp1mode==1)))
                 {
                     zlPush();
                     zlTranslate(145536*x,0,0);
@@ -263,22 +264,22 @@ void zeditpaint(void)
 
     if (mp1mode)
     {
-        if (button[4]==1 | (button[4]>30 & (((count) % 4)==1) )) if (ebrush1>0) {
+        if ((button[4]==1) | ((button[4]>30) & (((count) % 4)==1) )) if (ebrush1>0) {
                 ebrush1--;
                 ebrushdelay=-30;
             };
-        if (button[5]==1 | (button[5]>30 & (((count) % 4)==1) )) if (ebrush1<63) {
+        if ((button[5]==1) | ((button[5]>30) & (((count) % 4)==1) )) if (ebrush1<63) {
                 ebrush1++;
                 ebrushdelay=+30;
             };
     }
     else
     {
-        if (button[4]==1 | (button[4]>30 & (((count) % 4)==1) )) if (ebrush>0) {
+        if ((button[4]==1) | ((button[4]>30) & (((count) % 4)==1) )) if (ebrush>0) {
                 ebrush--;
                 ebrushdelay=-30;
             };
-        if (button[5]==1 | (button[5]>30 & (((count) % 4)==1) )) if (ebrush<39) {
+        if ((button[5]==1) | ((button[5]>30) & (((count) % 4)==1) )) if (ebrush<39) {
                 ebrush++;
                 ebrushdelay=+30;
             };
@@ -301,7 +302,7 @@ void zeditpaint(void)
     if (button[2]==1)
         if (mp1mode==0)
         {
-            if (button[4]>0 & button[5]>0)
+            if ((button[4]>0) & (button[5]>0))
             {
                 for (x=0; x<mpheader[8]; x++)
                     for (y=0; y<mpheader[8]; y++)
@@ -718,8 +719,8 @@ void zeditmenu(void)
 
         if (editmenupos==12)
         {
-            if (button[2]==1 | button[2]>64) mpheader[22]++;
-            if (button[0]==1 | button[0]>64) mpheader[22]--;
+            if ((button[2]==1) | (button[2]>64)) mpheader[22]++;
+            if ((button[0]==1) | (button[0]>64)) mpheader[22]--;
         }
 
         zlPush();
@@ -731,8 +732,8 @@ void zeditmenu(void)
 
         if (editmenupos==13)
         {
-            if (button[2]==1 | button[2]>64) editlevel++;
-            if (button[0]==1 | button[0]>64) editlevel--;
+            if ((button[2]==1) | (button[2]>64)) editlevel++;
+            if ((button[0]==1) | (button[0]>64)) editlevel--;
         }
 
         zlPush();
@@ -794,11 +795,11 @@ void zeditmenu(void)
         zlPop();
         if (editmenupos==18)
         {
-            if (button[2]==1 | button[2]>64) mpheader[16]++;
-            if (button[0]==1 | button[0]>64) mpheader[16]--;
+            if ((button[2]==1) | (button[2]>64)) mpheader[16]++;
+            if ((button[0]==1) | (button[0]>64)) mpheader[16]--;
 
-            if (button[3]==1 | button[3]>64) mpheader[17]++;
-            if (button[1]==1 | button[1]>64) mpheader[17]--;
+            if ((button[3]==1) | (button[3]>64)) mpheader[17]++;
+            if ((button[1]==1) | (button[1]>64)) mpheader[17]--;
         }
 
 

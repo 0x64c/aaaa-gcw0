@@ -328,8 +328,9 @@ u8 cheatinput[8]= {0,0,0,0,0,0,0,0};
 
 void trycheat(void)
 {
-    s8 i,k,l,cheat[4],ii;
-    if (button[0]==1 | button[1]==1 | button[3]==1)
+//    s8 i,k,l,cheat[4],ii; //unused iterator
+    s8 i,l,cheat[4],ii;
+    if ((button[0]==1) | (button[1]==1) | (button[3]==1))
     {
         for (i=0; i<7; i++)
             cheatinput[i]=cheatinput[i+1];
@@ -345,7 +346,7 @@ void trycheat(void)
             for (l=0; l<4; l++)
                 if (cheatinput[i]!=cheatcodes[l][i]) cheat[l]=0;
         }
-        if (cheat[0]!=0 | cheat[1]!=0 | cheat[2]!=0 |cheat[3]!=0)
+        if ((cheat[0]!=0) | (cheat[1]!=0) | (cheat[2]!=0) | (cheat[3]!=0))
         {
             for (i=0; i<8; i++)
                 cheatinput[i]=0;
@@ -390,7 +391,8 @@ void gamemenukey(void)
 {
     trycheat();
 
-    if (button[2]==1 || mousetap)
+    if ((button[2]==1) || (mousetap))
+    {
         if (configdata[mmsel]==0)
             zcplaysound(2);
 
@@ -446,7 +448,7 @@ void gamemenukey(void)
                 LoadNewMap(10);
                 break;
             }
-
+    }
     u32 w;
     if (mousebutton[0]>1)
         mmpos+=(mouseaxis[1]-holdmouseaxis[1])/7;
@@ -845,7 +847,8 @@ void gameselector(void)
         if ((axis[0]<-32) | (axis[0]>32)) selectordata+=axis[0]/8;
         else selectordata+=((selsd*378)-selectordata)>>3;
 
-        if (button[2]==1 | (button[0]==1))
+        if ((button[2]==1) | (button[0]==1))
+        {
             if (configdata[16+selsd*2]/100==0)
             {
                 zcplaysound(1);
@@ -857,7 +860,8 @@ void gameselector(void)
             {
                 zcplaysound(2);
             }
-        if (button[1]==1 | button[1]==3 | button[8]==1 | button[9]==1) {
+        }
+        if ((button[1]==1) | (button[1]==3) | (button[8]==1) | (button[9]==1)) {
             zcplaysound(2);
             newgamemode=ZGM_MENU;
         }
@@ -866,13 +870,13 @@ void gameselector(void)
 }
 
 s32 ccticks,ccstate=0,zerotick=0;
-#define TIMETRAP(x,y) if (ccticks>x & ccticks<=y)
+#define TIMETRAP(x,y) if ((ccticks>x) & (ccticks<=y))
 
 void gamelogo(void)
 {
     s32 r,g,b,a,i,sc,k,l;
     bgm=58;
-    if (ccstate==0 & count>1) {
+    if ((ccstate==0) & (count>1)) {
         zerotick=tickcount;
         ccstate=1;
     }

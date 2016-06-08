@@ -490,7 +490,7 @@ void procmob(unsigned char i)
     if (mob[i][9]!=0)
     {
         if (mob[i][11])
-            if (mob[i][9]>100 | mob[i][9]<-100) mobstep(i);
+            if ((mob[i][9]>100) | (mob[i][9]<-100)) mobstep(i);
 
         mob[i][4]+=FPML(mob[i][9],f_cos[mob[i][7]]);
         mob[i][5]-=FPML(mob[i][9],f_sin[mob[i][7]]);
@@ -724,7 +724,8 @@ void pushmobs(void)
 
 void mobloot(u8 i)
 {
-    s32 x,y,z,k,xx,yy,zz;
+//    s32 x,y,z,k,xx,yy,zz; //unused var
+    s32 x,y,z,k,xx,yy;
     x=mob[i][1]>>16;
     y=mob[i][2]>>16;
     z=mob[i][3]>>16;

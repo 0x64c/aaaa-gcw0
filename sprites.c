@@ -128,7 +128,7 @@ void procsprites(void)
                     tx=0;
                     ty=0;
                     if (sprite[i][5]>2) ty=32768;
-                    if (sprite[i][5]&1>0) tx=32768;
+                    if ((sprite[i][5]&1)>0) tx=32768;
 
 
                     zlPush();

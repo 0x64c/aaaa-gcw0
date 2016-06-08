@@ -99,7 +99,7 @@ void aaagui(void)
             if (guialpha<31) zlBlend(1);
             for (k=0; k<3; k++)
             {
-                if (k>2-mob[mobcontrol][42] | mob[mobcontrol][0]<=0) t=0;
+                if ((k>2-mob[mobcontrol][42]) | (mob[mobcontrol][0]<=0)) t=0;
                 else t=32768;
 
                 sx=8000;
@@ -355,12 +355,12 @@ void procendlevel(void)
     s32 i;
     if (endlevel<255)
     {
-        if (ltime[0]==0 & ltime[1]==0)
+        if ((ltime[0]==0) & (ltime[1]==0))
         {
             ltime[0]=(currenttick-levelstarttick)/60000;
             ltime[1]=((currenttick-levelstarttick)/1000)%60;
 
-            if (level>=2 & level<10)
+            if ((level>=2) & (level<10))
             {
                 i=level-2;
                 if (ltime[0]*60+ltime[1]<configdata[16+i*2]*60+configdata[16+i*2+1])
@@ -411,7 +411,7 @@ void procendlevel(void)
 
     }
 
-    if (narration==0 | playmode==ZPM_MOVIE)
+    if ((narration==0) | (playmode==ZPM_MOVIE))
         if (endlevel>32)
         {
             endlevel--;

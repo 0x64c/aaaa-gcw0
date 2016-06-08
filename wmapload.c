@@ -159,7 +159,7 @@ void trytoshade(s32 x,s32 y,s32 z)
                                     if (mp[x-1][y][z-1][0]>0)
                                         if (mp[x][y-1][z-1][0]>0)
                                             if (mp[x][y][z-1][0]>0)
-                                                if (mp[x-1][y-1][z][0]>0 | mp[x-1][y][z][0]>0 | mp[x][y-1][z][0]>0 | mp[x][y][z][0]>0)
+                                                if ((mp[x-1][y-1][z][0]>0) | (mp[x-1][y][z][0]>0) | (mp[x][y-1][z][0]>0) | (mp[x][y][z][0]>0))
                                                     mpc[x][y][z]=2;
                             }
 }
@@ -179,7 +179,7 @@ void trytoshadethineautism(s32 x,s32 y,s32 z)
                                     if (mp[x-1][y][z-1][0]>0)
                                         if (mp[x][y-1][z-1][0]>0)
                                             if (mp[x][y][z-1][0]>0)
-                                                if (mp[x-1][y-1][z][0]>0 | mp[x-1][y][z][0]>0 | mp[x][y-1][z][0]>0 | mp[x][y][z][0]>0)
+                                                if ((mp[x-1][y-1][z][0]>0) | (mp[x-1][y][z][0]>0) | (mp[x][y-1][z][0]>0) | (mp[x][y][z][0]>0))
                                                     mpc[x][y][z]=2;
                             }
 }
@@ -371,7 +371,8 @@ void savemapdisc(unsigned char index)
 
 void reshadelight(void)
 {
-    u32 i,x,y,z;
+//    u32 i,x,y,z; //unused var
+    u32 x,y,z;
 
     for (z=1; z<mpheader[9]-1; z++)
         for (y=1; y<mpheader[8]-1; y++)
@@ -382,14 +383,15 @@ void reshadelight(void)
                         if (mp[x-1][y][z-1][0]>0)
                             if (mp[x][y-1][z-1][0]>0)
                                 if (mp[x][y][z-1][0]>0)
-                                    if (mp[x-1][y-1][z][0]>0 | mp[x-1][y][z][0]>0 | mp[x][y-1][z][0]>0 | mp[x][y][z][0]>0)
+                                    if ((mp[x-1][y-1][z][0]>0) | (mp[x-1][y][z][0]>0) | (mp[x][y-1][z][0]>0) | (mp[x][y][z][0]>0))
                                         mpc[x][y][z]=2;
                 }
 }
 
 void reshadealllight(void)
 {
-    u32 i,x,y,z;
+//    u32 i,x,y,z; //unused var
+    u32 x,y,z;
 
     for (z=1; z<mpheader[9]-1; z++)
         for (y=1; y<mpheader[8]-1; y++)
@@ -400,7 +402,7 @@ void reshadealllight(void)
                         if (mp[x-1][y][z-1][0]>0)
                             if (mp[x][y-1][z-1][0]>0)
                                 if (mp[x][y][z-1][0]>0)
-                                    if (mp[x-1][y-1][z][0]>0 | mp[x-1][y][z][0]>0 | mp[x][y-1][z][0]>0 | mp[x][y][z][0]>0)
+                                    if ((mp[x-1][y-1][z][0]>0) | (mp[x-1][y][z][0]>0) | (mp[x][y-1][z][0]>0) | (mp[x][y][z][0]>0))
                                         mpc[x][y][z]=2;
                 }
 }

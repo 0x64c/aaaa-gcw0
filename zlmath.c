@@ -139,7 +139,7 @@ unsigned char i_probe_act(void)
     zz+=iz;
     steps-=2;
 
-    while (steps>0 & see>0)
+    while ((steps>0) & (see>0))
     {
         if (mp[xx>>16][yy>>16][zz>>16][0]>0) see=0;
         xx+=ix;
