@@ -27,9 +27,7 @@ HOLD: Exit to OS immediately
 
 Known bugs:
 
-Textures flicker when camera faces certain direction.
-
-Game progress/config are saved inside OPK directory and are therefore lost.
+Textures flicker with a certain camera orientation.
 
 Narrator voice missing in into sequence.
 
