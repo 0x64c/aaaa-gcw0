@@ -2129,7 +2129,12 @@ void gamesceneframe(void)
     zlRotatey(camera[4]);
     zlDepthTest(0);
     rendersky();
+    #if defined(GCW) & !defined(PC) //fog doesn't work properly on gcw
+    zlFog(0);
+    #else
     zlFog(1);
+    #endif
+//    zlFog(1);
     zlTranslate(-camera[0],-camera[1],-camera[2]);
     zlDepthTest(1);
     predrawmp1();//lights
