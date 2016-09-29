@@ -13,4 +13,4 @@ if [ ! -f ~/.aaaa/donothexedit.me ]; then
 fi
 
 echo "Starting AAAA"
-./aaaa
+env LD_LIBRARY_PATH=. ./aaaa
