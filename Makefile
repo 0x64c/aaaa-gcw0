@@ -13,7 +13,7 @@ RM = rm -f
 
 
 # Add SDL dependency
-LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL
+LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lshake
 CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW
 
 #LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell sdl-config --libs) -lGL

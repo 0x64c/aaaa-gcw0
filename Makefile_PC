@@ -12,7 +12,7 @@ RM = rm -f
 
 
 # Add SDL dependency
-LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lX11
+LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lX11 -lshake
 CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW -DPC
 
 #Pandora Mode

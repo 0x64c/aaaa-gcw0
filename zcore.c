@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
+#include "zlext.h"
 SDL_Surface *screen = NULL;
 #endif
 
