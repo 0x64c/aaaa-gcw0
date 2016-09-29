@@ -27,13 +27,16 @@ HOLD: Exit to OS immediately
 
 Known bugs:
 
-Textures flicker with a certain camera orientation.
+Force feedback is glitchy due to GCW0's driver (needs firmware fix)
 
-Narrator voice missing in into sequence.
-
-G-Sensor is buggy.
-
+PC Build joystick axes are wrong
 
 TODO:
 
-libshake support
+G-Sensor support
+
+
+
+Note: PC build requires libshake; please build and install it. Force feedback works well on PC.
+
+https://github.com/zear/libShake
