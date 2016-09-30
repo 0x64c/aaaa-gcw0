@@ -101,6 +101,7 @@ u8 playeraim=0,portraitmode=0,fpsdisplay=0,frameskip=1,thisframenice=1;
 
 s32 vibro=127,gsensor[6]= {0,0,0, 0,0,0};
 u8 vibrogcw=3;
+u8 gsensor_recentre=1;
 
 s32 lcuber[3],lflare[8];
 

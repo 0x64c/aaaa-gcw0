@@ -24,7 +24,7 @@ void zlInitVibe(void){
         effect.delay                            = 0;
         id = Shake_UploadEffect(device, &effect);
 
-	Shake_InitEffect(&effect2, SHAKE_EFFECT_PERIODIC);
+    Shake_InitEffect(&effect2, SHAKE_EFFECT_PERIODIC);
         effect2.u.periodic.waveform              = SHAKE_PERIODIC_SINE;
         effect2.u.periodic.period                = 0.1*0x100;
         effect2.u.periodic.magnitude             = 0x6000;
@@ -37,7 +37,7 @@ void zlInitVibe(void){
         effect2.delay                            = 0;
         id2 = Shake_UploadEffect(device, &effect2);
 
-	Shake_InitEffect(&effect3, SHAKE_EFFECT_PERIODIC);
+    Shake_InitEffect(&effect3, SHAKE_EFFECT_PERIODIC);
         effect3.u.periodic.waveform              = SHAKE_PERIODIC_SINE;
         effect3.u.periodic.period                = 0.1*0x100;
         effect3.u.periodic.magnitude             = 0x5000;
@@ -67,6 +67,63 @@ void zlShutDownVibe(void){
     Shake_Close(device);
     Shake_Quit();
 }
+#ifndef PC
+#include "SDL/SDL.h"
+#include <stdio.h>
+SDL_Joystick *gamepad_sensor=NULL;
+void zlInitGSensor(){
+    printf ("zlext Initializing joystick driver\n");
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		printf("zlext Joystick %u: \"%s\"\n", i, SDL_JoystickName(i));
+		if (strcmp(SDL_JoystickName(i), "linkdev device (Analog 2-axis 8-button 2-hat)") == 0)
+		{
+            printf("zlext GCW Zero's built-in analog stick..\n");
+		} else if (strcmp(SDL_JoystickName(i), "mxc6225") == 0)
+		{
+			gamepad_sensor = SDL_JoystickOpen(i);
+			if (gamepad_sensor)
+				printf("zlext Recognized GCW Zero's built-in g-sensor..\n");
+			else
+				printf("zlext ERROR: Failed to recognize GCW Zero's built-in g-sensor..\n");
+		}
+	}
+}
+int x_correct=0;
+int y_correct=0;
+void zlProcGSensor(){
+    int x,y,ix,iy;
+    x=SDL_JoystickGetAxis(gamepad_sensor,0)/32;
+    y=SDL_JoystickGetAxis(gamepad_sensor,1)/32;
+
+    if(gsensor_recentre==1){
+        x_correct=0-x;
+        y_correct=0-y;
+        gsensor_recentre=0;
+    }
+
+    printf("%d\t%d\t%d\t%d\n",x,y,x+x_correct,y+y_correct);
+
+    ix=x+x_correct-gsensor[0];
+    iy=y+y_correct-gsensor[1];
+
+    int gsensor_filter=40;
+
+    if (abs(ix)<gsensor_filter) ix=0;
+    if (abs(iy)<gsensor_filter) iy=0;
+
+    gsensor[3]=gsensor[3]+(ix-gsensor[3])/4;
+    gsensor[4]=gsensor[4]+(iy-gsensor[4])/4;
+
+    int gsensor_filter0=5;
+
+    if (abs(gsensor[3])<gsensor_filter0) gsensor[3]=0;
+    if (abs(gsensor[4])<gsensor_filter0) gsensor[4]=0;
+}
+void zlShutDownGSensor(){
+    SDL_JoystickClose(gamepad_sensor);
+}
+#endif
 #endif
 
 #ifdef GP2XCAANOO
@@ -282,6 +339,7 @@ void zlextinit(void)
 {
 #ifdef GCW
     zlInitVibe();
+    zlInitGSensor();
 #endif
 #ifdef GP2XCAANOO
     zlInitVibe();
@@ -323,6 +381,26 @@ void zlextframe(void)
 #endif
 
 #ifdef GCW
+    #ifndef PC
+    if (configdata[11])
+    {
+        zlProcGSensor();
+        consoleturn[1]+=((-gsensor[0]-consoleturn[1])>>4);
+        consoleturn[0]+=(((1024-gsensor[1])-consoleturn[0])>>4);
+    }
+    else
+    {
+        gsensor[0]=0;
+        gsensor[1]=0;
+        gsensor[2]=0;
+        gsensor[3]=0;
+        gsensor[4]=0;
+        gsensor[5]=0;
+        consoleturn[0]=0;
+        consoleturn[1]=0;
+    }
+    #endif
+
     if (configdata[10]) zlProcVibe();
     else vibrogcw=0;
 #endif
@@ -337,5 +415,8 @@ void zlextshutdown(void)
 #endif
 #ifdef GCW
     zlShutDownVibe();
+#ifndef PC
+    zlShutDownGSensor();
+#endif
 #endif
 }

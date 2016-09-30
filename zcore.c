@@ -81,7 +81,7 @@ EGLint attrib_list[]= {EGL_SURFACE_TYPE,EGL_WINDOW_BIT,EGL_BUFFER_SIZE,16,EGL_DE
 SDL_Surface *screen = NULL;
 #endif
 
-SDL_Joystick *gamepad=NULL, *pissdoranub2=NULL;;
+SDL_Joystick *gamepad=NULL, *pissdoranub2=NULL;
 
 int audio_channels=2,audio_rate=22050,audio_buffers=1024;
 Uint16 audio_format= AUDIO_S16;
@@ -685,7 +685,25 @@ void zcore_input_init(void)
         gamepad=SDL_JoystickOpen(1);
         pissdoranub2=SDL_JoystickOpen(2);
 #else
+#if defined(GCW) && !defined(PC)
+        for (int i = 0; i < SDL_NumJoysticks(); i++)
+        {
+            printf("Joystick %u: \"%s\"\n", i, SDL_JoystickName(i));
+            if (strcmp(SDL_JoystickName(i), "linkdev device (Analog 2-axis 8-button 2-hat)") == 0)
+            {
+                gamepad = SDL_JoystickOpen(i);
+                if (gamepad)
+                    printf("Recognized GCW Zero's built-in analog stick..\n");
+                else
+                    printf("ERROR: Failed to recognize GCW Zero's built-in analog stick..\n");
+            } else if (strcmp(SDL_JoystickName(i), "mxc6225") == 0)
+            {
+                    printf("GCW Zero's built-in g-sensor..\n");
+            }
+        }
+#else
         gamepad=SDL_JoystickOpen(0);
+#endif
 #endif
     }
 }
@@ -758,6 +776,9 @@ void zcore_input_frame(void)
             break;
         case SDL_KEYUP:
             for (i=0; i<20; i++) if (event.key.keysym.sym==code_keyb[i]) i_keyb[i]=0;
+#ifdef GCW
+            if(event.key.keysym.sym==SDLK_HOME) gsensor_recentre=1;
+#endif
             break;
 #endif
         case SDL_QUIT:
