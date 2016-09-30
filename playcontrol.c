@@ -336,6 +336,7 @@ void procautism(void)
                             mpedit((x)>>16,(y)>>16,(z)>>16,0);
                             autismdelay=512;
                             vibro=127;
+                            vibrogcw=3;
                             zcplaysound(13);
                         }
                         else
@@ -360,6 +361,7 @@ void procautism(void)
                                 mpedit((x),(y),(z),1+autismstuff);
                                 autismdelay=512;
                                 vibro=127;
+                                vibrogcw=3;
                                 zcplaysound(13);
                             }
                         }

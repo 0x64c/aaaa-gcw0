@@ -94,6 +94,7 @@ extern s32 tension[8];
 extern u8 playeraim,portraitmode,fpsdisplay,frameskip,thisframenice;
 
 extern s32 vibro,gsensor[6];
+extern u8 vibrogcw;
 
 extern s32 lcuber[3],lflare[8];
 

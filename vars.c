@@ -100,6 +100,7 @@ s32 tension[8]= {255,255,255,16,0,0,255,255};
 u8 playeraim=0,portraitmode=0,fpsdisplay=0,frameskip=1,thisframenice=1;
 
 s32 vibro=127,gsensor[6]= {0,0,0, 0,0,0};
+u8 vibrogcw=3;
 
 s32 lcuber[3],lflare[8];
 

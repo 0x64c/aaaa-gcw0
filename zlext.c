@@ -1,12 +1,12 @@
 #include "vars.h"
+#include <stdio.h>
 
-
-#if defined(GCW) || defined(PC32)
+#ifdef GCW
 #include "zlext/shake.h"
 #include <unistd.h>
 Shake_Device *device;
-Shake_Effect effect, effect2;
-int id, id2;
+Shake_Effect effect, effect2, effect3;
+int id, id2, id3;
 void zlInitVibe(void){
     Shake_Init();
     if(Shake_NumOfDevices()>0){
@@ -14,41 +14,56 @@ void zlInitVibe(void){
         Shake_InitEffect(&effect, SHAKE_EFFECT_PERIODIC);
         effect.u.periodic.waveform              = SHAKE_PERIODIC_SINE;
         effect.u.periodic.period                = 0.1*0x100;
-        effect.u.periodic.magnitude             = 0x7000;//7083,7FFF
-        effect.u.periodic.envelope.attackLength = 0x0;//100
-        effect.u.periodic.envelope.attackLevel  = 50;
-        effect.u.periodic.envelope.fadeLength   = 0x0;//100
-        effect.u.periodic.envelope.fadeLevel    = 50;
+        effect.u.periodic.magnitude             = 0x7000;
+        effect.u.periodic.envelope.attackLength = 0x0;
+        effect.u.periodic.envelope.attackLevel  = 0;
+        effect.u.periodic.envelope.fadeLength   = 0x100;
+        effect.u.periodic.envelope.fadeLevel    = 0;
         effect.direction                        = 0x4000;
-        effect.length                           = 400;
+        effect.length                           = 300;
         effect.delay                            = 0;
         id = Shake_UploadEffect(device, &effect);
 
 	Shake_InitEffect(&effect2, SHAKE_EFFECT_PERIODIC);
         effect2.u.periodic.waveform              = SHAKE_PERIODIC_SINE;
         effect2.u.periodic.period                = 0.1*0x100;
-        effect2.u.periodic.magnitude             = 0x5000;//7083,7FFF
-        effect2.u.periodic.envelope.attackLength = 0x0;//100
-        effect2.u.periodic.envelope.attackLevel  = 50;
-        effect2.u.periodic.envelope.fadeLength   = 0x0;//100
-        effect2.u.periodic.envelope.fadeLevel    = 50;
+        effect2.u.periodic.magnitude             = 0x6000;
+        effect2.u.periodic.envelope.attackLength = 0x0;
+        effect2.u.periodic.envelope.attackLevel  = 0;
+        effect2.u.periodic.envelope.fadeLength   = 0x100;
+        effect2.u.periodic.envelope.fadeLevel    = 0;
         effect2.direction                        = 0x4000;
-        effect2.length                           = 150;
+        effect2.length                           = 300;
         effect2.delay                            = 0;
-        id2 = Shake_UploadEffect(device, &effect);
+        id2 = Shake_UploadEffect(device, &effect2);
+
+	Shake_InitEffect(&effect3, SHAKE_EFFECT_PERIODIC);
+        effect3.u.periodic.waveform              = SHAKE_PERIODIC_SINE;
+        effect3.u.periodic.period                = 0.1*0x100;
+        effect3.u.periodic.magnitude             = 0x5000;
+        effect3.u.periodic.envelope.attackLength = 0x0;
+        effect3.u.periodic.envelope.attackLevel  = 0;
+        effect3.u.periodic.envelope.fadeLength   = 0x100;
+        effect3.u.periodic.envelope.fadeLevel    = 0;
+        effect3.direction                        = 0x4000;
+        effect3.length                           = 300;
+        effect3.delay                            = 0;
+        id2 = Shake_UploadEffect(device, &effect3);
     }
 }
 void zlProcVibe(void){
-    if (vibro>-64){
-	if(vibro>=100)
-		Shake_Play(device, id);
-	//if(vibro>=88)
-	else
-	        Shake_Play(device, id2);
-    }
+    if (vibrogcw==3)
+        Shake_Play(device, id);
+    else if (vibrogcw==2)
+        Shake_Play(device, id2);
+    else if (vibrogcw==1)
+        Shake_Play(device, id3);
+    vibrogcw=0;
 }
 void zlShutDownVibe(void){
     Shake_EraseEffect(device, id);
+    Shake_EraseEffect(device, id2);
+    Shake_EraseEffect(device, id3);
     Shake_Close(device);
     Shake_Quit();
 }
@@ -265,7 +280,7 @@ void wizhack(void)
 
 void zlextinit(void)
 {
-#if defined(GCW) || defined(PC32)
+#ifdef GCW
     zlInitVibe();
 #endif
 #ifdef GP2XCAANOO
@@ -307,8 +322,9 @@ void zlextframe(void)
 
 #endif
 
-#if defined(GCW) || defined(PC32)
+#ifdef GCW
     if (configdata[10]) zlProcVibe();
+    else vibrogcw=0;
 #endif
 
 }
@@ -319,7 +335,7 @@ void zlextshutdown(void)
     zlShutDownVibe();
     zlShutDownGSensor();
 #endif
-#if defined(GCW) || defined(PC32)
+#ifdef GCW
     zlShutDownVibe();
 #endif
 }

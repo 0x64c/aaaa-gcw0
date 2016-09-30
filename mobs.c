@@ -212,6 +212,7 @@ void hurtmob(unsigned char i)
 
     if (i==mobcontrol) {
         vibro=128;
+        vibrogcw=3;
         tension[4]=255;
         tension[5]=0;
         tension[6]=0;
@@ -231,7 +232,10 @@ void mobstrike(u8 i)
 {
     u8 k;
     s32 xx,yy,dd;
-    if (i==mobcontrol) if (vibro<88) vibro=88;
+    if (i==mobcontrol) {
+        if (vibro<88) vibro=88;
+        if (vibrogcw<1) vibrogcw=1;
+    }
 
     zcplaysound3d(11,5,mob[i][1],mob[i][2],mob[i][3]);
 
@@ -405,7 +409,10 @@ void mobfire(u8 i)
     newbullet();
 
 
-    if (i==mobcontrol) if (vibro<100) vibro=100;
+    if (i==mobcontrol) {
+        if (vibro<100) vibro=100;
+        if (vibrogcw<2) vibrogcw=2;
+    }
 }
 
 s32 mobw=26000,mobh=65536+40000;
@@ -591,8 +598,10 @@ void procmob(unsigned char i)
             {
                 zcplaysound3d(8,5,mob[i][1],mob[i][2],mob[i][3]);
 
-                if (i==mobcontrol)
+                if (i==mobcontrol){
                     if (vibro<88) vibro=88;
+                    if (vibrogcw<1) vibrogcw=1;
+                }
             }
 
 

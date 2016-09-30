@@ -391,8 +391,8 @@ void zcore_video_init(void)
 
     EGLint numConfigs,majorVersion,minorVersion;
 
-    screenwidth=320;
-    screenheight=240;
+    screenwidth=1280;
+    screenheight=960;
     int screenbpp=16;
     screen=SDL_SetVideoMode(screenwidth,screenheight,screenbpp, SDL_SWSURFACE); // | SDL_FULLSCREEN);
     g_x11Display = XOpenDisplay(NULL);
