@@ -1,25 +1,31 @@
-OPK_DIR=opk_build
+ifneq ($(PLATFORM), PC)
+$(info *** Defaulting to GCW version. Specify PLATFORM=PC for PCLINUX test build. ***)
 SDL_CONFIG=/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/bin/sdl-config
 TOOLCHAIN=/opt/gcw0-toolchain/usr/bin/mipsel-linux-
-
 LIB_INCLUDE=/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib
+else
+$(info *** Making PCLINUX test build. Unspecify PLATFORM=PC for GCW build. ***)
+SDL_CONFIG=/usr/bin/sdl-config
+TOOLCHAIN=
+LIB_INCLUDE=/usr/lib
+endif
+
+OPK_DIR=opk_build
 CC=$(TOOLCHAIN)gcc
 CXX=$(TOOLCHAIN)g++
 STRIP=$(TOOLCHAIN)strip
-
 EXE = aaaa
 OPK = $(EXE).opk
 RM = rm -f
 
-
-# Add SDL dependency
 LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lshake
 CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW
 
-#LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell sdl-config --libs) -lGL
-#CFLAGS +=$(shell sdl-config --cflags) -DPC32
+ifeq ($(PLATFORM), PC)
+LDFLAGS += -lX11
+CFLAGS += -DPC
+endif
 
-# Define targets
 SRCS=$(shell echo *.c)
 OBJS=$(SRCS:%.c=%.o)
 
@@ -33,16 +39,10 @@ ALL : $(EXE)
 $(EXE) : $(OBJS)
 	$(CXX) $(OBJS) -o $(EXE) $(LDFLAGS)
 #	$(STRIP) $(EXE)
+	cp $(EXE) $(OPK_DIR)
 
 opk : $(EXE)
-	cp $(EXE) $(OPK_DIR)
 	mksquashfs opk_build $(EXE).opk -all-root -noappend -no-exports -no-xattrs
-
-#install : $(EXE)
-#	$(INSTALL_PROG) $(EXE) $(PREFIX)/bin
-
-#uninstall :
-#	$(RM) $(PREFIX)/bin/$(EXE)
 
 clean :
 	$(RM) $(OBJS) $(EXE) $(OPK_DIR)/$(EXE) $(OPK)

@@ -26,5 +26,9 @@
 - OPK instruction manual
 
 ## Note:
-- PC build requires libshake; please build and install it. Force feedback works well on PC.
+- PCLINUX build requires libshake; please build and install it.
 - [GET LIBSHAKE HERE](https://github.com/zear/libShake)
+
+## Build notes:
+- "env PLATFORM=PC make" to build PCLINUX test build
+- "make opk" to build GCW opk build
