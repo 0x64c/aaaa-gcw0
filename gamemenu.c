@@ -138,9 +138,7 @@ void gamemenufront(void)
 {
     u8 i;
     s32 delta;
-
     menutilt+=((-gsensor[0]-menutilt)>>4);
-
     for (i=0; i<8; i++)
     {
         zlPush();
@@ -355,9 +353,9 @@ void trycheat(void)
         {
             configdata[1]=1;
             configdata[2]=1;
-//configdata[3]=0;
-//configdata[4]=0;
-//configdata[5]=0;
+configdata[3]=1;
+configdata[4]=1;
+configdata[5]=1;
             for (ii=0; ii<8; ii++) {
                 configdata[16+ii*2]=99;
                 configdata[17+ii*2]=59;

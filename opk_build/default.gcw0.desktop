@@ -7,4 +7,4 @@ Exec=start.sh
 Icon=icon
 Categories=games;
 X-OD-NeedsJoystick=false
-X-OD-NeedsGSensor=false
+X-OD-NeedsGSensor=true

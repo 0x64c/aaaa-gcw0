@@ -644,7 +644,7 @@ s8 jkey_map[16]= {0,1,2,3,4,5,6,7,8,9,-1,-1,-1,-1,-1,-1};
 int i_keyb[20];
 static const SDLKey code_keyb[20]=
 {
-    SDLK_SPACE, SDLK_LALT, SDLK_LCTRL, SDLK_LSHIFT, SDLK_TAB, SDLK_BACKSPACE ,SDLK_7,SDLK_8,
+    SDLK_SPACE, SDLK_LALT, SDLK_LCTRL, SDLK_LSHIFT, SDLK_TAB, SDLK_BACKSPACE, SDLK_HOME,SDLK_8,
     SDLK_RETURN,SDLK_ESCAPE,SDLK_q,SDLK_w,SDLK_e,SDLK_r,SDLK_t,SDLK_PAUSE,
     SDLK_UP,SDLK_RIGHT,SDLK_DOWN,SDLK_LEFT
 };
@@ -685,23 +685,16 @@ void zcore_input_init(void)
         gamepad=SDL_JoystickOpen(1);
         pissdoranub2=SDL_JoystickOpen(2);
 #else
-#if defined(GCW) && !defined(PC)
+#if defined(GCW) && !defined(PC) //open the right joystick
         for (int i = 0; i < SDL_NumJoysticks(); i++)
         {
-            printf("Joystick %u: \"%s\"\n", i, SDL_JoystickName(i));
             if (strcmp(SDL_JoystickName(i), "linkdev device (Analog 2-axis 8-button 2-hat)") == 0)
             {
                 gamepad = SDL_JoystickOpen(i);
-                if (gamepad)
-                    printf("Recognized GCW Zero's built-in analog stick..\n");
-                else
-                    printf("ERROR: Failed to recognize GCW Zero's built-in analog stick..\n");
-            } else if (strcmp(SDL_JoystickName(i), "mxc6225") == 0)
-            {
-                    printf("GCW Zero's built-in g-sensor..\n");
+                if (gamepad) printf("Recognized GCW Zero's built-in analog stick..\n");
             }
         }
-#else
+#else //PCLINUX isn't as special
         gamepad=SDL_JoystickOpen(0);
 #endif
 #endif
@@ -721,8 +714,13 @@ void zcore_input_frame(void)
                 if (SDL_JoystickGetButton(gamepad,jkey_map[k])>0) s_button[k]++;
                 else s_button[k]=0;
             }
+        #ifndef PC
         axis[0]=SDL_JoystickGetAxis(gamepad,0);
         axis[1]=SDL_JoystickGetAxis(gamepad,1);
+        #else
+        axis[0]=SDL_JoystickGetAxis(gamepad,axes_pc[0]);
+        axis[1]=SDL_JoystickGetAxis(gamepad,axes_pc[1]);
+        #endif
 
         axis[0]=axis[0]/256;
         axis[1]=axis[1]/256;
@@ -776,9 +774,6 @@ void zcore_input_frame(void)
             break;
         case SDL_KEYUP:
             for (i=0; i<20; i++) if (event.key.keysym.sym==code_keyb[i]) i_keyb[i]=0;
-#ifdef GCW
-            if(event.key.keysym.sym==SDLK_HOME) gsensor_recentre=1;
-#endif
             break;
 #endif
         case SDL_QUIT:
@@ -794,6 +789,9 @@ void zcore_input_frame(void)
     if (i_keyb[17]>0) axis[0]=128;
     if (i_keyb[18]>0) axis[1]=128;
     if (i_keyb[19]>0) axis[0]=-128;
+#endif
+#ifdef GCW //recentre gsensor with home button (power switch)
+    if(i_keyb[6]>0) gsensor_recentre=1;
 #endif
 
     for (i=0; i<16; i++)

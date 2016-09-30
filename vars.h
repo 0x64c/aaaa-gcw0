@@ -18,6 +18,10 @@ extern s32 fps,tickcount;
 extern u8 secretskin;
 #define MESH_CNT 16384
 
+#ifdef PC
+extern int axes_pc[4];
+#endif
+
 #ifdef PC32
 #include "GL/gl.h"
 extern GLfloat mesh[MESH_CNT*3];
@@ -95,6 +99,7 @@ extern u8 playeraim,portraitmode,fpsdisplay,frameskip,thisframenice;
 
 extern s32 vibro,gsensor[6];
 extern u8 vibrogcw;
+extern u8 gsensor_recentre;
 
 extern s32 lcuber[3],lflare[8];
 
