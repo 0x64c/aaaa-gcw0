@@ -1,4 +1,9 @@
 # aaaa-gcw0
+## Progress:
+- Controls
+- Graphics code fixes
+- Save file handling
+- Haptic feedback
 
 ## Controls:
 - A: Confirm/Sword
@@ -15,10 +20,10 @@
 
 ## Known bugs:
 - Force feedback is glitchy due to GCW0's driver (needs firmware fix)
-- PC Build joystick axes are wrong
 
 ## TODO:
 - G-Sensor support
+- OPK instruction manual
 
 ## Note:
 - PC build requires libshake; please build and install it. Force feedback works well on PC.
