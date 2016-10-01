@@ -1,5 +1,5 @@
 #include "vars.h"
-#include <stdio.h>
+//#include <stdio.h>
 
 #ifdef GCW
 #include "zlext/shake.h"
@@ -92,9 +92,11 @@ void zlProcGSensor(){
     y=SDL_JoystickGetAxis(gamepad_sensor,axes_pc[3])>>5;
 #endif
 
+    //printf("x %d\ty %d\tX %d\tY %d\txc %d\tyc %d\n",x,y,x+x_correct,y+y_correct,x_correct,y_correct);
+
     if(gsensor_recentre==1){ //catch recentre flag
         x_correct=-x;
-        y_correct=-y;
+        y_correct=-y+512;
         gsensor_recentre=0;
     }
 
@@ -334,7 +336,11 @@ void wizhack(void)
 void zlextinit(void)
 {
 #ifdef GCW
+#ifndef PC
+    if(!haptic_disabled) zlInitVibe();
+#else
     zlInitVibe();
+#endif
     zlInitGSensor();
 #endif
 #ifdef GP2XCAANOO
@@ -371,7 +377,7 @@ void zlextframe(void)
         consoleturn[1]=0;
     }
 
-    if (configdata[10]) zlProcVibe();
+    if (configdata[10] && !haptic_disabled) zlProcVibe();
     else vibro=-80;
 
 #endif

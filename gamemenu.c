@@ -555,8 +555,15 @@ void menuconfigcontrol(void)
             newgamemode=ZGM_MENU;
             break;
         case 3:
+#if defined(GCW) && !defined(PC)
+            if(!haptic_disabled){
+                zcplaysound(1);
+                configdata[10]=(configdata[10]+1)&1;
+            }
+#else
             zcplaysound(1);
             configdata[10]=(configdata[10]+1)&1;
+#endif
             break;
         case 4:
             zcplaysound(1);
@@ -591,8 +598,18 @@ void menuconfigcontrol(void)
         }
     sprintf(conftxt[1],"SOUND VOLUME %i%i%i",configdata[8]/100,configdata[8]/10%10,configdata[8]%10);
     sprintf(conftxt[2],"MUSIC VOLUME %i%i%i",configdata[9]/100,configdata[9]/10%10,configdata[9]%10);
+#if defined(GCW) && !defined(PC)
+    if(!haptic_disabled){
+        if (configdata[10]) sprintf(conftxt[3],"VIBRATION  <ON>");
+        else sprintf(conftxt[3],"VIBRATION  <OFF>");
+    }else{
+        if (configdata[10]) sprintf(conftxt[3],"HAPTIC  DISABLED");
+        else sprintf(conftxt[3],"HAPTIC  DISABLED");
+    }
+#else
     if (configdata[10]) sprintf(conftxt[3],"VIBRATION  <ON>");
     else sprintf(conftxt[3],"VIBRATION  <OFF>");
+#endif
     if (configdata[11]) sprintf(conftxt[4],"G-SENSE    <ON>");
     else sprintf(conftxt[4],"G-SENSE    <OFF>");
     sprintf(conftxt[5],"TURBO MODE <%s>",fstxt[configdata[12]]);

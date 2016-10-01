@@ -644,7 +644,7 @@ s8 jkey_map[16]= {0,1,2,3,4,5,6,7,8,9,-1,-1,-1,-1,-1,-1};
 int i_keyb[20];
 static const SDLKey code_keyb[20]=
 {
-    SDLK_SPACE, SDLK_LALT, SDLK_LCTRL, SDLK_LSHIFT, SDLK_TAB, SDLK_BACKSPACE, SDLK_HOME,SDLK_8,
+    SDLK_SPACE, SDLK_LALT, SDLK_LCTRL, SDLK_LSHIFT, SDLK_TAB, SDLK_BACKSPACE, SDLK_7,SDLK_8,
     SDLK_RETURN,SDLK_ESCAPE,SDLK_q,SDLK_w,SDLK_e,SDLK_r,SDLK_t,SDLK_PAUSE,
     SDLK_UP,SDLK_RIGHT,SDLK_DOWN,SDLK_LEFT
 };
@@ -774,6 +774,9 @@ void zcore_input_frame(void)
             break;
         case SDL_KEYUP:
             for (i=0; i<20; i++) if (event.key.keysym.sym==code_keyb[i]) i_keyb[i]=0;
+    #ifdef GCW //recentre gsensor with home button (power switch)
+            if(event.key.keysym.sym==SDLK_HOME) gsensor_recentre=1;
+    #endif
             break;
 #endif
         case SDL_QUIT:
@@ -789,9 +792,6 @@ void zcore_input_frame(void)
     if (i_keyb[17]>0) axis[0]=128;
     if (i_keyb[18]>0) axis[1]=128;
     if (i_keyb[19]>0) axis[0]=-128;
-#endif
-#ifdef GCW //recentre gsensor with home button (power switch)
-    if(i_keyb[6]>0) gsensor_recentre=1;
 #endif
 
     for (i=0; i<16; i++)

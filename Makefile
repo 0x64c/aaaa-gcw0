@@ -18,13 +18,20 @@ EXE = aaaa
 OPK = $(EXE).opk
 RM = rm -f
 
-LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL -lshake
+LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL
 CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW
 
 ifeq ($(PLATFORM), PC)
-LDFLAGS += -lX11
+LDFLAGS += -lX11 -lshake
 CFLAGS += -DPC
+else
+LDFLAGS += ./opk_build/libshake.so.1
 endif
+
+
+REMOTE_USER=root
+REMOTE_IP=192.168.2.104
+REMOTE_PATH=/media/GCW_EXT/apps
 
 SRCS=$(shell echo *.c)
 OBJS=$(SRCS:%.c=%.o)
@@ -43,6 +50,9 @@ $(EXE) : $(OBJS)
 
 opk : $(EXE)
 	mksquashfs opk_build $(EXE).opk -all-root -noappend -no-exports -no-xattrs
+
+upload : opk
+	scp ./$(OPK) $(REMOTE_USER)@$(REMOTE_IP):$(REMOTE_PATH)/$(OPK)
 
 clean :
 	$(RM) $(OBJS) $(EXE) $(OPK_DIR)/$(EXE) $(OPK)
