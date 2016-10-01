@@ -2,9 +2,10 @@
 
 Type=Application
 Name=AAAA
-Comment=By Quasist
+Comment=Adamant Armour Affection Adventure
 Exec=start.sh
 Icon=icon
 Categories=games;
 X-OD-NeedsJoystick=false
 X-OD-NeedsGSensor=true
+X-OD-Manual=readme.txt
