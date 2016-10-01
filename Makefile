@@ -19,7 +19,7 @@ OPK = $(EXE).opk
 RM = rm -f
 
 LDFLAGS +=-lSDL_gfx -lSDL_image -lSDL_mixer $(shell $(SDL_CONFIG) --libs) -lGLESv1_CM -lEGL
-CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -g -DGCW
+CFLAGS +=$(shell $(SDL_CONFIG) --cflags) -DGCW
 
 ifeq ($(PLATFORM), PC)
 LDFLAGS += -lX11 -lshake
@@ -46,7 +46,7 @@ ALL : $(EXE)
 
 $(EXE) : $(OBJS)
 	$(CXX) $(OBJS) -o $(EXE) $(LDFLAGS)
-#	$(STRIP) $(EXE)
+	$(STRIP) $(EXE)
 	cp $(EXE) $(OPK_DIR)
 
 opk : $(EXE)
