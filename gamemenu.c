@@ -555,12 +555,7 @@ void menuconfigcontrol(void)
             newgamemode=ZGM_MENU;
             break;
         case 3:
-#if defined(GCW) && !defined(PC)
-            if(!haptic_disabled){
-                zcplaysound(1);
-                configdata[10]=(configdata[10]+1)&1;
-            }
-#else
+#ifndef NOHAPTIC
             zcplaysound(1);
             configdata[10]=(configdata[10]+1)&1;
 #endif
@@ -598,14 +593,9 @@ void menuconfigcontrol(void)
         }
     sprintf(conftxt[1],"SOUND VOLUME %i%i%i",configdata[8]/100,configdata[8]/10%10,configdata[8]%10);
     sprintf(conftxt[2],"MUSIC VOLUME %i%i%i",configdata[9]/100,configdata[9]/10%10,configdata[9]%10);
-#if defined(GCW) && !defined(PC)
-    if(!haptic_disabled){
-        if (configdata[10]) sprintf(conftxt[3],"VIBRATION  <ON>");
-        else sprintf(conftxt[3],"VIBRATION  <OFF>");
-    }else{
-        if (configdata[10]) sprintf(conftxt[3],"HAPTIC  DISABLED");
-        else sprintf(conftxt[3],"HAPTIC  DISABLED");
-    }
+#ifdef NOHAPTIC
+    if (configdata[10]) sprintf(conftxt[3],"HAPTIC  DISABLED");
+    else sprintf(conftxt[3],"HAPTIC  DISABLED");
 #else
     if (configdata[10]) sprintf(conftxt[3],"VIBRATION  <ON>");
     else sprintf(conftxt[3],"VIBRATION  <OFF>");

@@ -26,6 +26,7 @@ LDFLAGS += -lX11 -lshake
 CFLAGS += -DPC
 else
 LDFLAGS += ./opk_build/libshake.so.1
+CFLAGS += -DNOHAPTIC
 endif
 
 

@@ -100,9 +100,6 @@ extern u8 playeraim,portraitmode,fpsdisplay,frameskip,thisframenice;
 extern s32 vibro,gsensor[6];
 extern u8 vibrogcw;
 extern u8 gsensor_recentre;
-#if defined(GCW) && !defined(PC)
-extern u8 haptic_disabled;
-#endif
 
 extern s32 lcuber[3],lflare[8];
 

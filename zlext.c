@@ -336,9 +336,7 @@ void wizhack(void)
 void zlextinit(void)
 {
 #ifdef GCW
-#ifndef PC
-    if(!haptic_disabled) zlInitVibe();
-#else
+#ifndef NOHAPTIC
     zlInitVibe();
 #endif
     zlInitGSensor();
@@ -377,7 +375,7 @@ void zlextframe(void)
         consoleturn[1]=0;
     }
 
-    if (configdata[10] && !haptic_disabled) zlProcVibe();
+    if (configdata[10]) zlProcVibe();
     else vibro=-80;
 
 #endif
@@ -400,9 +398,10 @@ void zlextframe(void)
         consoleturn[0]=0;
         consoleturn[1]=0;
     }
-
+#ifndef NOHAPTIC
     if (configdata[10]) zlProcVibe();
     else vibrogcw=0;
+#endif
 #endif
 
 }
