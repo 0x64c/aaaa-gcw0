@@ -35,7 +35,7 @@ Notes:
 
 Acknowledgements:
 Game:        Quasist & Don Miguel
-GCW Port:    com64 (https://github.com/munchluxe63)
+GCW Port:    com64, some fixes/suggestions from Senquack & JohnnyonFlame
 libshake:    zear & jxv
 
 Git repository:
