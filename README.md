@@ -22,7 +22,6 @@
 
 ## Known bugs:
 - Force feedback is glitchy due to GCW0's driver (needs firmware fix)
-- G-Sensor centre function needs improvement
 
 ## TODO:
 - OPK instruction manual

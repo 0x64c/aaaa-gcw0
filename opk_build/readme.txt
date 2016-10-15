@@ -30,24 +30,16 @@ Controls:
 Notes:
   Please understand: gsensor centre position is set on launch, and can be set again by using the proper controls mentioned above.
   Please understand: haptic feedback is fully functional, but has been disabled in this release, due to a haptic driver bug in the current firmware. This is to ensure maximum user experience and after the release of a fixed firmware, this software will be re-released with this feature available. If you would like to experience haptic feedback in this game, feel free to download the source code from my repository and make either the PC build, or the GCW build without the "-DNOHAPTIC" flag. However, you are on your own and I will provide no warranty against undesired operation.
-  Please understand: this game's audio narration is actually contained inside the soundtrack and could not be effectively edited to match with the text.
+  Please understand: this game's audio narration is actually contained inside the soundtrack and could not be effectively edited to match with the updated text.
   Please understand: this game saves to the path "~/.aaaa".
 
 Acknowledgements:
 Game:        Quasist & Don Miguel
-GCW Port:    com64
+GCW Port:    com64 (https://github.com/munchluxe63)
 libshake:    zear & jxv
 
 Git repository:
 https://github.com/munchluxe63/aaaa-gcw0
-
-**************************************************
-**************************************************
-This port of AAAA is distributed with the <idgaf> license:
-**************************************************
-**************************************************
-
-<put license here>
 
 **************************************************
 **************************************************
